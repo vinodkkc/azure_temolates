@@ -1,0 +1,24 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'database'
+    subscriptionId: '164e0d23-4044-48aa-9695-82653de04f13'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'ADO-BC-Team1'
+    location: 'East US'
+    templateLocation: 'Linked artifact'
+    csmFile: 'db.json'
+    csmParametersFile: 'db.parameters.json'
+    deploymentMode: 'Incremental'
